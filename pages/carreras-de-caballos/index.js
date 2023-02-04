@@ -1,5 +1,5 @@
 import Link from "next/link";
-import RouterService from "../../lib/routerService";
+import RouterService from "@/lib/routerService";
 
 export default function HorseRaces() {
   return (
@@ -10,7 +10,7 @@ export default function HorseRaces() {
         <div>
           <div>
             <div>
-              <img src="/start.jpg" alt="Start"/>
+              <img src="/start.jpg" alt="Start" />
             </div>
             <div>
               <h4>Lo que debes saber antes de empezar</h4>
@@ -23,12 +23,12 @@ export default function HorseRaces() {
               <Link href={RouterService.TERMINOLOGY_URL}>Saber más</Link>
             </div>
             <div>
-              <img src="/nextstep.jpg" alt="Siguientes pasos"/>
+              <img src="/nextstep.jpg" alt="Siguientes pasos" />
             </div>
           </div>
           <div>
             <div>
-              <img src="/finish.jpg" alt="Finish"/>
+              <img src="/finish.jpg" alt="Finish" />
             </div>
             <div>
               <h4>Tipos de apuestas</h4>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import RouterService from "@/lib/routerService";
+import RouterService from "../../lib/routerService";
 
 export default function HorseRaces() {
   return (

@@ -10,9 +10,9 @@ export default function Home({ lastBets }) {
         <div>
           <h4>Últimas apuestas:</h4>
           <div>
-            {lastBets.map((elm) => (
+            {lastBets.map((elm, index) => (
               <BetCard 
-                key={elm._id} 
+                key={`card-${index + 1}`} 
                 bet={elm} />
             ))}
           </div>

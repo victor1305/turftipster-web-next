@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useRouter } from "next/router";
 import stats2016 from "../lib/historyStats/2016.json";
+import stats2017 from "../lib/historyStats/2017.json";
+import stats2018 from "../lib/historyStats/2018.json";
+import stats2019 from "../lib/historyStats/2019.json";
+import stats2020 from "../lib/historyStats/2020.json";
+import BetService from "@/lib/betService";
 
 export default function Stats({ start, end, paramYear }) {
   const yearsButtons = [...Array(end - start + 1).keys()].map((x) => x + start);
@@ -43,10 +48,36 @@ export default function Stats({ start, end, paramYear }) {
     "profit",
   ];
 
-  const setYear = (year) => {
+  const setYear = async (year) => {
+    if (year === yearSelected) return;
     setYearSelected(year);
     setStatsType(null);
-    setTableBody(stats2016);
+    let staticStats;
+
+    if (year < 2021) {
+      if (year === 2016) {
+        staticStats = stats2016;
+      } else if (year === 2017) {
+        staticStats = stats2017;
+      } else if (year === 2018) {
+        staticStats = stats2018;
+      } else if (year === 2019) {
+        staticStats = stats2019;
+      } else {
+        staticStats = stats2020;
+      }
+
+      setTableBody(staticStats);
+      setStatsType(null);
+    } else {
+      try {
+        const res = await BetService.getBetsByMonth(year);
+        setStatsType('Meses');
+        setTableBody(res);
+      } catch (error) {
+        return error;
+      }
+    }
 
     router.push({
       pathname: "/stats",
@@ -54,7 +85,18 @@ export default function Stats({ start, end, paramYear }) {
     });
   };
 
-  const setType = (type) => {
+  const setType = async (type) => {
+    if (type === statsType) return;
+
+    const typeBd =
+      type === "Stakes"
+        ? "stake"
+        : type === "Hipódromos"
+        ? "racecourse"
+        : type === "Categorías"
+        ? "category"
+        : "month";
+
     setStatsType(type);
     const newQuery = { year: yearSelected.toString(), type };
 
@@ -62,6 +104,18 @@ export default function Stats({ start, end, paramYear }) {
       pathname: "/stats",
       query: newQuery,
     });
+
+    try {
+      let res;
+      if (typeBd === "month") {
+        res = await BetService.getBetsByMonth(yearSelected);
+      } else {
+        res = await BetService.getBetsByType(yearSelected, typeBd);
+      }
+      setTableBody(res);
+    } catch (error) {
+      return error;
+    }
   };
 
   return (
@@ -92,28 +146,33 @@ export default function Stats({ start, end, paramYear }) {
         )}
 
         <div>
-          <table>
-            <thead>
-              <tr>
-                {tableHeader.map((elm, index) => {
-                  if (statsType !== "Stakes" || elm !== "Stake Medio") {
-                    return <td key={index}>{elm}</td>;
-                  }
-                })}
-              </tr>
-            </thead>
-            <tbody>
-              {tableBody.map((item, index) => (
-                <tr key={index}>
-                  {arrKeys.map((itemKey, keyIndex) => {
-                    if (statsType !== "Stakes" || itemKey !== "medium_stake") {
-                      return <td key={keyIndex}>{item[itemKey]}</td>;
+          {tableBody.length && (
+            <table>
+              <thead>
+                <tr>
+                  {tableHeader.map((elm, index) => {
+                    if (statsType !== "Stakes" || elm !== "Stake Medio") {
+                      return <td key={index}>{elm}</td>;
                     }
                   })}
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {tableBody.map((item, index) => (
+                  <tr key={index}>
+                    {arrKeys.map((itemKey, keyIndex) => {
+                      if (
+                        statsType !== "Stakes" ||
+                        itemKey !== "medium_stake"
+                      ) {
+                        return <td key={keyIndex}>{item[itemKey]}</td>;
+                      }
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </main>
     </div>

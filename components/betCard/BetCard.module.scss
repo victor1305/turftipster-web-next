@@ -1,0 +1,66 @@
+@import "@/styles/principals/_colors.scss";
+@import "@/styles/principals/_medias.scss";
+
+.card {
+  border-radius: 5px;
+  padding: 20px;
+  width: 254px;
+  margin: 15px;
+  background-color: $color-primary-100 !important;
+  background: linear-gradient($color-primary-80 0%, $color-primary-100 50%);
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+
+  &--win {
+    border: 2px solid $color-win;
+  }
+
+  &--loss {
+    border: 2px solid $color-loss;
+  }
+
+  &--void {
+    border: 2px solid $color-void;
+  }
+
+  &:hover {
+    box-shadow: 8px 8px 16px 0 rgba(255,255,255, 0.2);
+  }
+
+  h4 {
+    font-size: 16px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #fff;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 14px;
+    margin-bottom: 14px;    
+  }
+
+  &--date {
+    text-align: right;
+    margin-bottom: 18px !important;
+  }
+
+  &--limit-lines {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+  }
+
+  &--separator {
+    display: flex;
+    justify-content: center;
+    margin-top: 6px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #fff;
+  }
+
+  &__btn-container {
+    text-align: center;
+  }
+}

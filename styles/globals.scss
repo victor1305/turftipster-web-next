@@ -1,1 +1,70 @@
+@import "@/styles/principals/_fonts.scss";
+@import "@/styles/principals/_colors.scss";
+@import "@/styles/principals/_medias.scss";
 
+*:not(i) {
+  font-family: Krub, Raleway, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
+    Helvetica Neue, sans-serif;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  color: $color-neutral-00;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.body {
+  background-color: $color-primary-100 !important;
+  background: linear-gradient($color-primary-80 0%, $color-primary-100 50%);
+  min-height: calc(100vh - 343px);
+  padding: 0 16px;
+
+  @media #{$mediaMobile} {
+    min-height: calc(100vh - 305px);
+  }
+
+  @media #{$mediaTablet} {
+    min-height: calc(100vh - 213px);
+  }
+
+  @media #{$mediaDesktop} {
+    margin-top: 0;
+    padding: 0 24px;
+  }
+}
+
+.text-win {
+  color: $color-win;
+}
+
+.text-loss {
+  color: $color-loss;
+}
+
+.text-void {
+  color: $color-void;
+}
+
+.card-btn {
+  width: 75px;
+  cursor: pointer;
+  background-color: #323546;
+  padding: 5px 10px;
+  border: 1px solid #323546;
+  color: #fff;
+  border-radius: 5px;
+}

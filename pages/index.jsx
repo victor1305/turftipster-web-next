@@ -6,7 +6,7 @@ export default function Home({ lastBets }) {
   return (
     <div>
       <main className="main">
-        <h1>HOLAAAAAAAAAAAA</h1>
+        <h1>SOMOS PRONOSTICADORES</h1>
         <div>
           <h4>Últimas apuestas:</h4>
           <div>

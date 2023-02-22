@@ -1,21 +1,8 @@
 import RouterService from "@/lib/routerService";
-import Link from "next/link";
+import classNames from "classnames";
+import styles from "@/components/betCard/BetCard.module.scss";
 
 export default function BetCard({ bet }) {
-  let betstate = "";
-
-  if (bet.status === "pending") {
-    betstate = "card-p-pending";
-  }
-  if (bet.status === "win") {
-    betstate = "card-p-win";
-  }
-  if (bet.status === "loss") {
-    betstate = "card-p-loss";
-  }
-  if (bet.status === "void") {
-    betstate = "card-p-void";
-  }
 
   let dateFormated = "";
 
@@ -28,31 +15,49 @@ export default function BetCard({ bet }) {
   }
 
   return (
-    <div>
+    <div className={classNames(styles["card"], {
+      [styles["card--win"]]:
+        bet.status === "win",
+      [styles["card--void"]]:
+        bet.status === "void",
+      [styles["card--loss"]]:
+        bet.status === "loss",
+    })}>
+      <p className={styles["card--date"]}>
+        {dateFormated}
+      </p>
       <h4>
-        <strong>{bet.bookie}</strong>
-      </h4>
-      <p>
         <strong>{bet.racecourse}</strong>
-      </p>
-      <p>{bet.betName}</p>
-      <p>
-        <strong>Stake: </strong>
-        {bet.stake}
+      </h4>
+      <p className={styles["card--limit-lines"]}>
+        <strong>{bet.betName}</strong>
       </p>
       <p>
-        <strong>Cuota: </strong>
-        {bet.price}
-      </p>
-      <p className={betstate}>
-        <strong>Ganancia: </strong>
-        {bet.profit.toFixed(2)} Uds
+        Stake:
+        <strong> {bet.stake}</strong>
       </p>
       <p>
-        <strong>{dateFormated}</strong>
+        Cuota:
+        <strong> {bet.price}</strong>
       </p>
-      <div>
-        <button onClick={viewOffer}>Detalles</button>
+      <p>
+        Ganancia:
+        <strong className={classNames({
+          "text-win":
+            bet.status === "win",
+          "text-void":
+            bet.status === "void",
+          "text-loss":
+            bet.status === "loss",
+        })}> {bet.profit.toFixed(2)} Uds</strong>
+      </p>
+      <p>
+        Bookie:
+        <strong> {bet.bookie}</strong>
+      </p>
+      <div className={styles["card--separator"]} />
+      <div className={styles["card__btn-container"]} >
+        <button className="card-btn" onClick={viewOffer}>Detalles</button>
       </div>
     </div>
   );

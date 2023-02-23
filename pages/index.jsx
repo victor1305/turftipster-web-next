@@ -1,13 +1,14 @@
 import BetService from "@/lib/betService";
 import BetCard from "@/components/betCard";
+import styles from "@/styles/pages/Home.module.scss";
 
 export default function Home({ lastBets }) {
 
   return (
-    <div>
+    <div className={styles.home}>
       <main className="main">
         <h1>SOMOS PRONOSTICADORES</h1>
-        <div>
+        <div className={styles["home__last-bets"]}>
           <h4>Últimas apuestas:</h4>
           <div>
             {lastBets.map((elm, index) => (

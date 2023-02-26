@@ -10,15 +10,34 @@
   align-items: center;
   position: fixed;
   top: 0;
-  background-color: $color-primary-100;
+  background-color: $color-background;
   position: static;
   top: auto;
 
   &--logo {
     text-decoration: none;
-    color: $color-secondary-100;
+    color: $color-primary-100;
     margin-left: 100px;
     font-family: 'Allura', cursive;
     font-size: 44px;
+  }
+
+  &__menu {
+    display: flex;
+    width: 380px;
+    justify-content: space-between;
+    margin-right: 100px;
+
+    &--active {
+      color: $color-primary-100;
+    }
+
+    p {
+      font-weight: 500;
+
+      :hover {
+        color: $color-primary-60;
+      }
+    }
   }
 }

@@ -1,0 +1,33 @@
+@import "@/styles/principals/_colors.scss";
+@import "@/styles/principals/_medias.scss";
+
+.table-stats {
+  border-collapse: collapse;
+  border: 1px solid rgb(34, 37, 49);
+  max-width: 900px;
+  margin: 20px auto; 
+  color: $color-neutral-00;
+
+  td {
+    border: 1px solid #222531;
+  }
+
+  th {
+    border: 1px solid #222531;
+    text-align: center;
+    padding: 8px;
+  }
+
+  thead > tr {
+    background-color: #17171a;
+    padding: 5px;
+    margin: 0;
+  }
+
+  tbody > tr {
+    td {
+      padding: 5px 10px;
+      text-align: center;
+    }
+  }
+}

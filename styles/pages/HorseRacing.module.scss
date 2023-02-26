@@ -1,0 +1,46 @@
+@import "@/styles/principals/_colors.scss";
+@import "@/styles/principals/_medias.scss";
+
+.horse-racing {
+  h2 {
+    text-align: center;
+    font-size: 30px;
+  }
+
+  h6 {
+    color: $color-neutral-00;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  section {
+    border-top: 2px solid $color-primary-100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 900px;
+    margin: 0 auto;
+
+    &:last-of-type {
+      border-bottom: 2px solid $color-primary-100;
+    }
+
+    h4 {
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+
+    img {
+      width: 432px;
+      height: 288px;
+    }
+
+    div {
+      width: 100%;
+      padding: 22px;
+      text-align: center;
+    }
+  }
+}

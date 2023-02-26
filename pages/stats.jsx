@@ -7,6 +7,7 @@ import stats2018 from "../lib/historyStats/2018.json";
 import stats2019 from "../lib/historyStats/2019.json";
 import stats2020 from "../lib/historyStats/2020.json";
 import BetService from "@/lib/betService";
+import styles from "@/styles/pages/Stats.module.scss";
 
 export default function Stats({ start, end, paramYear }) {
   const yearsButtons = [...Array(end - start + 1).keys()].map((x) => x + start);
@@ -119,7 +120,7 @@ export default function Stats({ start, end, paramYear }) {
   };
 
   return (
-    <div>
+    <div className={styles["stats-page"]}>
       <main className="main">
         <h2>Stats</h2>
         <h6>
@@ -147,12 +148,12 @@ export default function Stats({ start, end, paramYear }) {
 
         <div>
           {tableBody.length && (
-            <table>
+            <table className={styles["table-stats"]}>
               <thead>
                 <tr>
                   {tableHeader.map((elm, index) => {
                     if (statsType !== "Stakes" || elm !== "Stake Medio") {
-                      return <td key={index}>{elm}</td>;
+                      return <th key={index}>{elm}</th>;
                     }
                   })}
                 </tr>

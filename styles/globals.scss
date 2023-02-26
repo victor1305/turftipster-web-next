@@ -13,6 +13,11 @@ body {
   margin: 0;
 }
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 h1,
 h2,
 h3,
@@ -28,10 +33,10 @@ p {
 }
 
 .body {
-  background-color: $color-primary-100 !important;
-  background: linear-gradient($color-primary-80 0%, $color-primary-100 50%);
-  min-height: calc(100vh - 343px);
-  padding: 0 16px;
+  background-color: $color-background !important;
+  background: linear-gradient($color-gradient-first 0%, $color-gradient-second 70%);
+  min-height: calc(100vh - 70px);
+  padding: 50px 16px;
 
   @media #{$mediaMobile} {
     min-height: calc(100vh - 305px);
@@ -43,7 +48,8 @@ p {
 
   @media #{$mediaDesktop} {
     margin-top: 0;
-    padding: 0 24px;
+    padding: 50px 24px;
+    min-height: calc(100vh - 70px);
   }
 }
 
@@ -62,9 +68,14 @@ p {
 .card-btn {
   width: 75px;
   cursor: pointer;
-  background-color: #323546;
+  background-color: $color-secondary-100;
   padding: 5px 10px;
-  border: 1px solid #323546;
   color: #fff;
   border-radius: 5px;
+  border: none;
+  font-weight: 500;
+
+  &:hover {
+    background-color: $color-primary-80;
+  }
 }

@@ -1,9 +1,11 @@
+import styles from "@/styles/pages/FirstStepsPage.module.scss"
+
 export default function FirstSteps() {
   return (
-    <div>
+    <div className={styles["first-steps-page"]}>
       <main className="main">
         <article>
-          <h1>Lo que debes saber antes de empezar</h1>
+          <h2>Lo que debes saber antes de empezar</h2>
           <p>
             Un altísimo porcentaje de las personas de nuestro grupo han llegado
             a nosotros sin saber nada de las carreras de caballos, venían de
@@ -45,6 +47,10 @@ export default function FirstSteps() {
             quien te prometa ganar mucho en dos días, porque lo más probable es
             que lo pierdas todo.
           </p>
+
+          <div>
+            <img src="/horsesStart.jpg" alt="Race Start" />
+          </div>
         </article>
       </main>
     </div>

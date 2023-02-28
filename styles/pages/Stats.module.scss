@@ -1,6 +1,82 @@
 @import "@/styles/principals/_colors.scss";
 @import "@/styles/principals/_medias.scss";
 
+
+.stats-page {
+
+  h2 {
+    font-size: 30px;
+    color: $color-neutral-00;
+    text-align: center;
+  }
+
+  h4 {
+    font-size: 20px;
+    color: $color-neutral-00;
+    text-align: center;
+    margin: 25px 0;
+  }
+
+  h6 {
+    font-size: 16px;
+    color: $color-neutral-00;
+    text-align: center;
+  }
+
+  &__type-container {
+    display: flex;
+    margin: 10px auto;
+    border: 2px solid $color-secondary-120;
+    padding: 10px;
+    width: fit-content;
+
+    p {
+      padding-right: 10px;
+    }
+
+    &--active {
+      color: $color-primary-100 !important;
+      cursor: initial !important;
+    }
+
+    &__grid {
+      display: grid;
+      grid-template-columns: 40px 40px 40px 40px 32px;
+      grid-auto-rows: auto;
+      gap: 10px;
+
+      p {
+        padding-right: 0 !important;
+        span {
+          cursor: pointer;
+          color: $color-neutral-00;
+          font-weight: 500;
+          font-size: 14px;
+        }
+      }
+    }
+
+    &__flex {
+      display: flex;
+      justify-content: center;
+
+      p {
+        padding-right: 20px;
+        span {
+          cursor: pointer;
+          color: $color-neutral-00;
+          font-weight: 500;
+          font-size: 14px;
+        }
+
+        &:last-of-type {
+          padding-right: 0;
+        }
+      } 
+    }
+  }
+}
+
 .table-stats {
   border-collapse: collapse;
   border: 1px solid rgb(34, 37, 49);
@@ -8,12 +84,47 @@
   margin: 20px auto; 
   color: $color-neutral-00;
 
+  &__bet {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin: 0 auto;
+
+    &--win {
+      background-color: $color-win;
+    }
+
+    &--void {
+      background-color: $color-void;
+    }
+
+    &--loss {
+      background-color: $color-loss;
+    }
+  }
+
+  &__result {
+    font-weight: 700 !important;
+
+    &--win {
+      color: $color-win;
+    }
+
+    &--void {
+      color: $color-void;
+    }
+
+    &--loss {
+      color: $color-loss;
+    }
+  }
+
   td {
-    border: 1px solid #222531;
+    border: 1px solid $color-secondary-120;
   }
 
   th {
-    border: 1px solid #222531;
+    border: 1px solid $color-secondary-120;
     text-align: center;
     padding: 8px;
   }

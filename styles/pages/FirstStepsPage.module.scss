@@ -1,4 +1,5 @@
 @import "@/styles/principals/_colors.scss";
+@import "@/styles/principals/_medias.scss";
 
 .first-steps-page {
   h2 {
@@ -7,14 +8,16 @@
     padding-bottom: 35px;
   }
 
+  &__go-back {
+    padding-bottom: 25px;
+  }
+
   article {
     max-width: 900px;
     margin: 0 auto;
   }
 
   a {
-    display: block;
-    padding-bottom: 25px;
     color: $color-primary-100;
     font-weight: 600;
   }

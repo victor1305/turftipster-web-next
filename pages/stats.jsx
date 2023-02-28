@@ -8,22 +8,25 @@ import stats2019 from "../lib/historyStats/2019.json";
 import stats2020 from "../lib/historyStats/2020.json";
 import BetService from "@/lib/betService";
 import styles from "@/styles/pages/Stats.module.scss";
+import DotLoader from "react-spinners/DotLoader";
+import classNames from "classnames";
 
-export default function Stats({ start, end, paramYear }) {
+export default function Stats({ start, end, statsArr }) {
   const yearsButtons = [...Array(end - start + 1).keys()].map((x) => x + start);
   const router = useRouter();
-  const [yearSelected, setYearSelected] = useState(paramYear);
-  const [statsType, setStatsType] = useState(null);
-  const [tableBody, setTableBody] = useState([]);
+  const [yearSelected, setYearSelected] = useState(end);
+  const [statsType, setStatsType] = useState("Meses");
+  const [tableBody, setTableBody] = useState(statsArr);
+  const [spinner, setSpinner] = useState(false);
 
   const statsTyperArr = ["Meses", "Hipódromos", "Categorías", "Stakes"];
   const tableHeader = [
-    statsType,
+    statsType ? statsType : "Meses",
     "Apuestas",
     "Aciertos",
     "Fallos",
     "Nulos",
-    "% Acierto",
+    "Acierto",
     "Stake Medio",
     "Uds Jugadas",
     "Yield",
@@ -72,18 +75,16 @@ export default function Stats({ start, end, paramYear }) {
       setStatsType(null);
     } else {
       try {
+        setStatsType("Meses");
+        setSpinner(true);
         const res = await BetService.getBetsByMonth(year);
-        setStatsType('Meses');
         setTableBody(res);
       } catch (error) {
         return error;
+      } finally {
+        setSpinner(false);
       }
     }
-
-    router.push({
-      pathname: "/stats",
-      query: { year: year.toString() },
-    });
   };
 
   const setType = async (type) => {
@@ -99,14 +100,9 @@ export default function Stats({ start, end, paramYear }) {
         : "month";
 
     setStatsType(type);
-    const newQuery = { year: yearSelected.toString(), type };
-
-    router.push({
-      pathname: "/stats",
-      query: newQuery,
-    });
 
     try {
+      setSpinner(true);
       let res;
       if (typeBd === "month") {
         res = await BetService.getBetsByMonth(yearSelected);
@@ -116,6 +112,8 @@ export default function Stats({ start, end, paramYear }) {
       setTableBody(res);
     } catch (error) {
       return error;
+    } finally {
+      setSpinner(false);
     }
   };
 
@@ -128,51 +126,138 @@ export default function Stats({ start, end, paramYear }) {
           pronosticar públicamente en el año 2016.
         </h6>
 
-        <div>
-          {yearsButtons.map((elm, index) => (
-            <button key={index} type="button" onClick={() => setYear(elm)}>
-              {elm}
-            </button>
-          ))}
-        </div>
-
-        {yearSelected > 2020 && (
-          <div>
-            {statsTyperArr.map((elm, index) => (
-              <button key={index} type="button" onClick={() => setType(elm)}>
-                {elm}
-              </button>
+        <div className={styles["stats-page__type-container"]}>
+          <p>Año:</p>
+          <div className={styles["stats-page__type-container__grid"]}>
+            {yearsButtons.map((elm, index) => (
+              <p>
+                <span
+                  key={index}
+                  onClick={() => setYear(elm)}
+                  className={classNames({
+                    [styles["stats-page__type-container--active"]]:
+                      elm === yearSelected,
+                  })}
+                >
+                  {elm}
+                </span>
+              </p>
             ))}
           </div>
-        )}
+        </div>
 
         <div>
-          {tableBody.length && (
-            <table className={styles["table-stats"]}>
-              <thead>
-                <tr>
-                  {tableHeader.map((elm, index) => {
-                    if (statsType !== "Stakes" || elm !== "Stake Medio") {
-                      return <th key={index}>{elm}</th>;
-                    }
-                  })}
-                </tr>
-              </thead>
-              <tbody>
-                {tableBody.map((item, index) => (
-                  <tr key={index}>
-                    {arrKeys.map((itemKey, keyIndex) => {
-                      if (
-                        statsType !== "Stakes" ||
-                        itemKey !== "medium_stake"
-                      ) {
-                        return <td key={keyIndex}>{item[itemKey]}</td>;
-                      }
-                    })}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          {!spinner ? (
+            <div>
+              <h4>Estadísticas Año {yearSelected}</h4>
+              {yearSelected > 2020 && (
+                <div className={styles["stats-page__type-container"]}>
+                  <p>Tipo:</p>
+                  <div className={styles["stats-page__type-container__flex"]}>
+                    {statsTyperArr.map((elm, index) => (
+                      <p>
+                        <span
+                          key={index}
+                          onClick={() => setType(elm)}
+                          className={classNames({
+                            [styles["stats-page__type-container--active"]]:
+                              elm === statsType,
+                          })}
+                        >
+                          {elm}
+                        </span>
+                      </p>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {tableBody.length && (
+                <table className={styles["table-stats"]}>
+                  <thead>
+                    <tr>
+                      {tableHeader.map((elm, index) => {
+                        if (
+                          elm === "Aciertos" ||
+                          elm === "Fallos" ||
+                          elm === "Nulos"
+                        ) {
+                          return (
+                            <th key={index}>
+                              <div
+                                className={classNames(
+                                  styles["table-stats__bet"],
+                                  {
+                                    [styles["table-stats__bet--win"]]:
+                                      elm === "Aciertos",
+                                    [styles["table-stats__bet--void"]]:
+                                      elm === "Nulos",
+                                    [styles["table-stats__bet--loss"]]:
+                                      elm === "Fallos",
+                                  }
+                                )}
+                              ></div>
+                            </th>
+                          );
+                        }
+                        if (statsType !== "Stakes" || elm !== "Stake Medio") {
+                          return <th key={index}>{elm}</th>;
+                        }
+                      })}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tableBody.map((item, index) => (
+                      <tr key={index}>
+                        {arrKeys.map((itemKey, keyIndex) => {
+                          if (
+                            statsType !== "Stakes" ||
+                            itemKey !== "medium_stake"
+                          ) {
+                            return (
+                              <td
+                                key={keyIndex}
+                                className={classNames({
+                                  [styles["table-stats__result"]]:
+                                    itemKey === "yield" || itemKey === "profit",
+                                  [styles["table-stats__result--win"]]:
+                                    (itemKey === "yield" ||
+                                      itemKey === "profit") &&
+                                    item[itemKey] > 0,
+                                  [styles["table-stats__result--loss"]]:
+                                    (itemKey === "yield" ||
+                                      itemKey === "profit") &&
+                                    item[itemKey] < 0,
+                                  [styles["table-stats__result--void"]]:
+                                    (itemKey === "yield" ||
+                                      itemKey === "profit") &&
+                                    (item[itemKey] === "0.00" ||
+                                      item[itemKey] === "NaN"),
+                                })}
+                              >
+                                {(itemKey === "win_percent" ||
+                                  itemKey === "yield") &&
+                                item[itemKey] !== "NaN"
+                                  ? `${item[itemKey]}%`
+                                  : itemKey === "medium_stake" &&
+                                    item[itemKey] === "NaN"
+                                  ? "0.00"
+                                  : (itemKey === "win_percent" ||
+                                      itemKey === "yield") &&
+                                    item[itemKey] === "NaN"
+                                  ? "N/A"
+                                  : item[itemKey]}
+                              </td>
+                            );
+                          }
+                        })}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
+          ) : (
+            <DotLoader color={"#3860fb"} loading={spinner} size={150} />
           )}
         </div>
       </main>
@@ -183,19 +268,17 @@ export default function Stats({ start, end, paramYear }) {
 Stats.propTypes = {
   start: PropTypes.number.isRequired,
   end: PropTypes.number.isRequired,
+  statsArr: PropTypes.array.isRequired,
 };
 
 export async function getServerSideProps(ctx) {
   const start = 2016;
   const end = new Date().getFullYear();
-  let paramYear = null;
 
-  if (ctx.query.year) {
-    paramYear = parseInt(ctx.query.year);
-  }
+  const statsArr = await BetService.getBetsByMonth(end);
 
   const serverSideResponse = {
-    props: { start, end, paramYear },
+    props: { start, end, statsArr },
   };
 
   return serverSideResponse;

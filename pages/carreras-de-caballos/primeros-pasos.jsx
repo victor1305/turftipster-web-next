@@ -8,7 +8,7 @@ export default function FirstSteps() {
       <main className="main">
         <article>
           <h2>Lo que debes saber antes de empezar</h2>
-          <Link id="go-back-btn" href={RouterService.HORSE_RACING_URL}>← Volver al índice</Link>
+          <p className={styles["first-steps-page__go-back"]}><Link id="go-back-btn" href={RouterService.HORSE_RACING_URL}>← Volver al índice</Link></p>
           <p>
             Un altísimo porcentaje de las personas de nuestro grupo han llegado
             a nosotros sin saber nada de las carreras de caballos, venían de

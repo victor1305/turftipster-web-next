@@ -1,9 +1,76 @@
+@import "@/styles/principals/_colors.scss";
+@import "@/styles/principals/_medias.scss";
+
 .home {
+  &__principal-section {
+    padding-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column-reverse;
+
+    &__image-box {
+      padding: 70px 20px;
+
+      @media #{$mediaDesktop} {
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      img {
+        width: 100%;
+        max-width: 800px;
+      }
+    }
+
+    &__title-box {
+      h1 {
+        font-family: 'Allura', cursive;
+        font-size: 56px;
+        text-align: center;
+
+        @media #{$mediaDesktop} {
+          font-size: 86px;
+        }
+      }
+
+      h4 {
+        width: 300px;
+        text-align: center;
+        padding-top: 5px;
+        font-size: 16px;
+
+        @media #{$mediaDesktop} {
+          font-size: 20px;
+          padding-top: 10px;
+        }
+      }
+    }
+
+  }
+
   &__last-bets {
 
+    > h4 {
+      padding-left: 20px;
+      padding-top: 10px;
+      font-size: 16px;
+
+      @media #{$mediaDesktop} {
+        font-size: 20px;
+      }
+    }
+
     > div {
+      width: 100vw;
       display: flex;
-      justify-content: center;
+      white-space: nowrap;
+      overflow-y: hidden;
+      overflow-x: scroll;
+      box-sizing: border-box;
+      width: 100%;
+      justify-content: flex-start;
+      padding-bottom: 40px;
     }
   }
 }

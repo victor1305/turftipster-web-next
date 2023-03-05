@@ -7,7 +7,15 @@ export default function Home({ lastBets }) {
   return (
     <div className={styles.home}>
       <main className="main">
-        <h1>SOMOS PRONOSTICADORES</h1>
+        <div className={styles["home__principal-section"]}>
+          <div className={styles["home__principal-section__image-box"]}>
+            <img src="/home-image.png" alt="horse" />
+          </div>
+          <div className={styles["home__principal-section__title-box"]}>
+            <h1>TurfTipster</h1>
+            <h4>HORSE RACING TIPSTERS</h4>
+          </div>
+        </div>
         <div className={styles["home__last-bets"]}>
           <h4>Últimas apuestas:</h4>
           <div>

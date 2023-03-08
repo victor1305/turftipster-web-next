@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { useRouter } from "next/router";
 import stats2016 from "../lib/historyStats/2016.json";
 import stats2017 from "../lib/historyStats/2017.json";
 import stats2018 from "../lib/historyStats/2018.json";
 import stats2019 from "../lib/historyStats/2019.json";
 import stats2020 from "../lib/historyStats/2020.json";
 import BetService from "@/lib/betService";
+import { useMediaQuery } from 'react-responsive'
 import styles from "@/styles/pages/Stats.module.scss";
 import DotLoader from "react-spinners/DotLoader";
 import classNames from "classnames";
 
 export default function Stats({ start, end, statsArr }) {
   const yearsButtons = [...Array(end - start + 1).keys()].map((x) => x + start);
-  const router = useRouter();
+  const isDesktop = useMediaQuery({ query: '(min-width: 1024px)' })
+  const littleScreen = useMediaQuery({ query: '(max-width: 384px)' })
   const [yearSelected, setYearSelected] = useState(end);
   const [statsType, setStatsType] = useState("Meses");
   const [tableBody, setTableBody] = useState(statsArr);
@@ -30,7 +31,7 @@ export default function Stats({ start, end, statsArr }) {
     "Stake Medio",
     "Uds Jugadas",
     "Yield",
-    "Uds Ganadas",
+    "Profit",
   ];
 
   const arrKeys = [
@@ -130,9 +131,8 @@ export default function Stats({ start, end, statsArr }) {
           <p>Año:</p>
           <div className={styles["stats-page__type-container__grid"]}>
             {yearsButtons.map((elm, index) => (
-              <p>
+              <p key={`year-${index}`}>
                 <span
-                  key={index}
                   onClick={() => setYear(elm)}
                   className={classNames({
                     [styles["stats-page__type-container--active"]]:
@@ -152,12 +152,11 @@ export default function Stats({ start, end, statsArr }) {
               <h4>Estadísticas Año {yearSelected}</h4>
               {yearSelected > 2020 && (
                 <div className={styles["stats-page__type-container"]}>
-                  <p>Tipo:</p>
+                  {!littleScreen &&<p>Tipo:</p>}
                   <div className={styles["stats-page__type-container__flex"]}>
                     {statsTyperArr.map((elm, index) => (
-                      <p>
+                      <p key={`type-${index}`}>
                         <span
-                          key={index}
                           onClick={() => setType(elm)}
                           className={classNames({
                             [styles["stats-page__type-container--active"]]:
@@ -176,13 +175,13 @@ export default function Stats({ start, end, statsArr }) {
                   <thead>
                     <tr>
                       {tableHeader.map((elm, index) => {
-                        if (
+                        if ((
                           elm === "Aciertos" ||
                           elm === "Fallos" ||
                           elm === "Nulos"
-                        ) {
+                      ) && (isDesktop)) {
                           return (
-                            <th key={index}>
+                            <th key={`header-${index}`}>
                               <div
                                 className={classNames(
                                   styles["table-stats__bet"],
@@ -199,8 +198,8 @@ export default function Stats({ start, end, statsArr }) {
                             </th>
                           );
                         }
-                        if (statsType !== "Stakes" || elm !== "Stake Medio") {
-                          return <th key={index}>{elm}</th>;
+                        if (((statsType !== "Stakes" || elm !== "Stake Medio") && (isDesktop)) || (elm === statsType) || (elm === 'Acierto') || (elm === 'Yield') || (elm === 'Profit')) {
+                          return <th key={`header-${index}`}>{elm}</th>;
                         }
                       })}
                     </tr>
@@ -209,13 +208,14 @@ export default function Stats({ start, end, statsArr }) {
                     {tableBody.map((item, index) => (
                       <tr key={index}>
                         {arrKeys.map((itemKey, keyIndex) => {
-                          if (
+                          if (((
                             statsType !== "Stakes" ||
                             itemKey !== "medium_stake"
-                          ) {
+                          ) && (isDesktop)) || (itemKey === 'yield') || (itemKey === 'profit') || (itemKey === 'win_percent') || (itemKey === arrKeys[0])) {
                             return (
                               <td
-                                key={keyIndex}
+                                id={`body-${index}-${keyIndex}`}
+                                key={`body-${index}-${keyIndex}`}
                                 className={classNames({
                                   [styles["table-stats__result"]]:
                                     itemKey === "yield" || itemKey === "profit",

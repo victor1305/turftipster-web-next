@@ -1,0 +1,35 @@
+@import "@/styles/principals/_colors.scss";
+@import "@/styles/principals/_medias.scss";
+
+
+.footer-container {
+  background-color: $color-background !important;
+  background: linear-gradient($color-gradient-first 0%, $color-gradient-second 70%);
+  padding: 20px;
+  color: #fff;
+  font-weight: 500;
+
+  &__rrss {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    padding-bottom: 8px;
+    max-width: 250px;
+    margin: 0 auto;
+    border-bottom: 1px solid #fff;
+
+    img {
+      width: 20px;
+      cursor: pointer;
+    }
+  }
+
+  &__copy {
+    padding-top: 8px;
+    text-align: center;
+    span {
+      padding-top: 8px;
+    }
+  }
+}

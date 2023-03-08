@@ -35,24 +35,14 @@ p {
 .body {
   background-color: $color-background !important;
   background: linear-gradient($color-gradient-first 0%, $color-gradient-second 70%);
-  min-height: calc(100vh - 70px);
-  // padding: 50px 16px;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
-
-  @media #{$mediaMobile} {
-    min-height: calc(100vh - 305px);
-  }
-
-  @media #{$mediaTablet} {
-    min-height: calc(100vh - 213px);
-  }
+  min-height: calc(100vh - 173px);
+  padding-top: 50px;
+  display: flex;
+  justify-content: center;
 
   @media #{$mediaDesktop} {
-    margin-top: 0;
+    //margin-top: 0;
     //padding: 50px 24px;
-    min-height: calc(100vh - 70px);
   }
 }
 

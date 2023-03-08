@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import NavBar from "@/components/navbar/index";
-//import Footer from "@/components/footer/index";
+import Footer from "@/components/footer/index";
 
 export default function Layout({ children }) {
 
@@ -12,7 +12,7 @@ export default function Layout({ children }) {
       >
         {children}
       </main>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }

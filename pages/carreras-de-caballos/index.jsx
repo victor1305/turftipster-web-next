@@ -8,7 +8,7 @@ export default function HorseRaces() {
       <main className="main">
         <h2>¿Eres nuevo en el mundo de las Carreras de Caballos?</h2>
         <h6>En esta sección encontraras todo lo necesario para iniciarte.</h6>
-        <div>
+        <div className={styles["horse-racing--sections-container"]}>
           <section>
             <div>
               <img src="/start.jpg" alt="Start" />
@@ -18,7 +18,7 @@ export default function HorseRaces() {
               <Link href={RouterService.FIRST_STEPS_URL} className="card-btn">Saber más</Link>
             </div>
           </section>
-          <section>
+          <section className={styles["horse-racing--second-section"]}>
             <div>
               <h4>El bank, la unidad, el stake y el yield</h4>
               <Link href={RouterService.TERMINOLOGY_URL} className="card-btn">Saber más</Link>

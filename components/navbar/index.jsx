@@ -11,6 +11,17 @@ export default function NavBar() {
   const [ open, setOpen ] = useState(false)
   const router = useRouter();
 
+  const openCloseMenu = () => {
+    const body = document.querySelector('body') 
+    if (!open) {
+      body.style.overflowY = 'hidden'
+    } else {
+      body.style.overflowY = 'auto'
+    }
+
+    setOpen(!open)
+  }
+
   return (
     <div>
       <nav className={styles.container}>
@@ -33,7 +44,7 @@ export default function NavBar() {
             })}><Link href={RouterService.WHO_ARE_US_URL}>Quienes somos</Link></p>
         </div>
         <div className={styles["container__burger"]}>
-          {open ? <FiX onClick={() => setOpen(!open)} /> : <FiMenu onClick={() => setOpen(!open)} />}
+          {open ? <FiX onClick={openCloseMenu} /> : <FiMenu onClick={openCloseMenu} />}
         </div>
       </nav>
     </div>

@@ -6,15 +6,15 @@ import stats2018 from "../lib/historyStats/2018.json";
 import stats2019 from "../lib/historyStats/2019.json";
 import stats2020 from "../lib/historyStats/2020.json";
 import BetService from "@/lib/betService";
-import { useMediaQuery } from 'react-responsive'
+import { useMediaQuery } from "react-responsive";
 import styles from "@/styles/pages/Stats.module.scss";
 import DotLoader from "react-spinners/DotLoader";
 import classNames from "classnames";
 
 export default function Stats({ start, end, statsArr }) {
   const yearsButtons = [...Array(end - start + 1).keys()].map((x) => x + start);
-  const isDesktop = useMediaQuery({ query: '(min-width: 1024px)' })
-  const littleScreen = useMediaQuery({ query: '(max-width: 384px)' })
+  const isDesktop = useMediaQuery({ query: "(min-width: 1024px)" });
+  const littleScreen = useMediaQuery({ query: "(max-width: 384px)" });
   const [yearSelected, setYearSelected] = useState(end);
   const [statsType, setStatsType] = useState("Meses");
   const [tableBody, setTableBody] = useState(statsArr);
@@ -152,7 +152,7 @@ export default function Stats({ start, end, statsArr }) {
               <h4>Estadísticas Año {yearSelected}</h4>
               {yearSelected > 2020 && (
                 <div className={styles["stats-page__type-container"]}>
-                  {!littleScreen &&<p>Tipo:</p>}
+                  {!littleScreen && <p>Tipo:</p>}
                   <div className={styles["stats-page__type-container__flex"]}>
                     {statsTyperArr.map((elm, index) => (
                       <p key={`type-${index}`}>
@@ -175,11 +175,12 @@ export default function Stats({ start, end, statsArr }) {
                   <thead>
                     <tr>
                       {tableHeader.map((elm, index) => {
-                        if ((
-                          elm === "Aciertos" ||
-                          elm === "Fallos" ||
-                          elm === "Nulos"
-                      ) && (isDesktop)) {
+                        if (
+                          (elm === "Aciertos" ||
+                            elm === "Fallos" ||
+                            elm === "Nulos") &&
+                          isDesktop
+                        ) {
                           return (
                             <th key={`header-${index}`}>
                               <div
@@ -198,7 +199,14 @@ export default function Stats({ start, end, statsArr }) {
                             </th>
                           );
                         }
-                        if (((statsType !== "Stakes" || elm !== "Stake Medio") && (isDesktop)) || (elm === statsType) || (elm === 'Acierto') || (elm === 'Yield') || (elm === 'Profit')) {
+                        if (
+                          ((statsType !== "Stakes" || elm !== "Stake Medio") &&
+                            isDesktop) ||
+                          elm === statsType ||
+                          elm === "Acierto" ||
+                          elm === "Yield" ||
+                          elm === "Profit"
+                        ) {
                           return <th key={`header-${index}`}>{elm}</th>;
                         }
                       })}
@@ -208,10 +216,15 @@ export default function Stats({ start, end, statsArr }) {
                     {tableBody.map((item, index) => (
                       <tr key={index}>
                         {arrKeys.map((itemKey, keyIndex) => {
-                          if (((
-                            statsType !== "Stakes" ||
-                            itemKey !== "medium_stake"
-                          ) && (isDesktop)) || (itemKey === 'yield') || (itemKey === 'profit') || (itemKey === 'win_percent') || (itemKey === arrKeys[0])) {
+                          if (
+                            ((statsType !== "Stakes" ||
+                              itemKey !== "medium_stake") &&
+                              isDesktop) ||
+                            itemKey === "yield" ||
+                            itemKey === "profit" ||
+                            itemKey === "win_percent" ||
+                            itemKey === arrKeys[0]
+                          ) {
                             return (
                               <td
                                 id={`body-${index}-${keyIndex}`}

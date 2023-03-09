@@ -10,7 +10,7 @@ export default function BetCard({ bet }) {
     dateFormated = new Date(bet.date).toLocaleDateString();
   }
 
-  const viewOffer = () => {
+  const viewDetail = () => {
     RouterService.goToBetDetail(bet._id)
   }
 
@@ -57,7 +57,7 @@ export default function BetCard({ bet }) {
       </p>
       <div className={styles["card--separator"]} />
       <div className={styles["card__btn-container"]} >
-        <button className="card-btn" onClick={viewOffer}>Detalles</button>
+        <button className="card-btn" onClick={viewDetail}>Detalles</button>
       </div>
     </div>
   );

@@ -1,6 +1,8 @@
-export default AboutUs = () => {
+import styles from "@/styles/pages/AboutUs.module.scss";
+
+export default function AboutUs() {
   return (
-    <div>
+    <div className={styles["about-us-page"]}>
       <main className="main">
         <article>
           <h2>¿Quiénes Somos?</h2>
@@ -36,8 +38,12 @@ export default AboutUs = () => {
             quedadas para ver una jornada de carreras juntos en el hipódromo
             correspondiente y comer después.
           </p>
+
+          <div>
+            <img src="/Cuadra.jpg" alt="cuadra" />
+          </div>
         </article>
       </main>
     </div>
   );
-};
+}

@@ -1,0 +1,42 @@
+@import "@/styles/principals/_colors.scss";
+@import "@/styles/principals/_medias.scss";
+
+.bet-detail-page {
+  h2 {
+    text-align: center;
+    font-size: 24px;
+    padding: 0 14px 35px;
+  }
+
+  &__content {
+    p {
+      padding-bottom: 15px;
+    }
+
+    &--detail-status-win {
+      color: $color-win;
+      font-weight: bold;
+    }
+
+    &--detail-status-loss {
+      color: $color-loss;
+      font-weight: bold;
+    }
+
+    &--detail-status-void {
+      color: $color-void;
+      font-weight: bold;
+    }
+  }
+
+  &__btn-container {
+    margin-top: 50px;
+    text-align: center;
+  }
+
+  @media #{$mediaDesktop} {
+    h2 {
+      font-size: 30px;
+    }
+  }
+}

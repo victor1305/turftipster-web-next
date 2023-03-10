@@ -27,7 +27,9 @@ export default function App({ Component, pageProps }) {
   return (
     <Layout {...pageProps}>
       {loading ? (
-        <DotLoader color={"#3860fb"} loading={loading} size={150} />
+        <div className="spinner-global">
+          <DotLoader color={"#3860fb"} loading={loading} size={150} />
+        </div>
       ) : (
         <Component {...pageProps} />
       )}

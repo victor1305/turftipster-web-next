@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { useMediaQuery } from "react-responsive";
 import stats2016 from "../lib/historyStats/2016.json";
 import stats2017 from "../lib/historyStats/2017.json";
 import stats2018 from "../lib/historyStats/2018.json";
 import stats2019 from "../lib/historyStats/2019.json";
 import stats2020 from "../lib/historyStats/2020.json";
 import BetService from "@/lib/betService";
-import { useMediaQuery } from "react-responsive";
 import styles from "@/styles/pages/Stats.module.scss";
 import DotLoader from "react-spinners/DotLoader";
 import classNames from "classnames";
 
 export default function Stats({ start, end, statsArr }) {
   const yearsButtons = [...Array(end - start + 1).keys()].map((x) => x + start);
-  const isDesktop = useMediaQuery({ query: "(min-width: 1024px)" });
   const littleScreen = useMediaQuery({ query: "(max-width: 384px)" });
   const [yearSelected, setYearSelected] = useState(end);
   const [statsType, setStatsType] = useState("Meses");
@@ -282,7 +281,9 @@ export default function Stats({ start, end, statsArr }) {
               )}
             </div>
           ) : (
+            <div className={styles["stats-page--spinner"]}>
             <DotLoader color={"#3860fb"} loading={spinner} size={150} />
+            </div>
           )}
         </div>
       </main>

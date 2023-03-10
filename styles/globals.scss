@@ -54,6 +54,13 @@ p {
   color: $color-void;
 }
 
+.spinner-global {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+}
+
 .card-btn {
   width: 75px;
   cursor: pointer;

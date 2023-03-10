@@ -20,10 +20,13 @@ export default function NavBar() {
 
   const openCloseMenu = () => {
     const body = document.querySelector("body");
+    const gloHtml = document.querySelector("html");
     if (!open) {
+      gloHtml.style.overflowY = "hidden";
       body.style.overflowY = "hidden";
       document.addEventListener("touchmove", preventDefault, false);
     } else {
+      gloHtml.style.overflowY = "auto";
       body.style.overflowY = "auto";
       document.removeEventListener("touchmove", preventDefault, false);
     }
@@ -33,7 +36,9 @@ export default function NavBar() {
 
   const closeMenu = () => {
     const body = document.querySelector("body");
+    const gloHtml = document.querySelector("html");
     if (open) {
+      gloHtml.style.overflowY = "auto";
       body.style.overflowY = "auto";
       document.removeEventListener("touchmove", preventDefault, false);
       setOpen(!open);

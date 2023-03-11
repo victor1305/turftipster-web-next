@@ -3,7 +3,7 @@
 
 .home {
   &__principal-section {
-    padding-top: 50px;
+    height: calc(100vh - 103px);
     display: flex;
     justify-content: center;
     align-items: center;

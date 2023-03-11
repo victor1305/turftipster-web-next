@@ -282,7 +282,7 @@ export default function Stats({ start, end, statsArr }) {
             </div>
           ) : (
             <div className={styles["stats-page--spinner"]}>
-            <DotLoader color={"#3860fb"} loading={spinner} size={150} />
+            <DotLoader color={"#3860fb"} loading={spinner} size={90} />
             </div>
           )}
         </div>
